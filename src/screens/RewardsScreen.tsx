@@ -1,1 +1,1 @@
-export * from '@/app/(tabs)/Home/components/RewardsTab';
+export { RewardsTab } from '@/app/(tabs)/Home/components/RewardsTab';

@@ -1,1 +1,1 @@
-export * from '@/app/(tabs)/Home/components/NeuButton';
+export { NeuButton } from '@/app/(tabs)/Home/components/NeuButton';

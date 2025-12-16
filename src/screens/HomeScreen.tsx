@@ -1,1 +1,2 @@
-export * from '@/app/(tabs)/index';
+import Home from '@/app/(tabs)/index';
+export default Home;

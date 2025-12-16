@@ -1,1 +1,1 @@
-export * from '@/app/(tabs)/Home/components/AppHeader';
+export { AppHeader } from '@/app/(tabs)/Home/components/AppHeader';

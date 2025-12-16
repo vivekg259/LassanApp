@@ -1,1 +1,1 @@
-export * from '@/app/components/tabs/BottomNavigation';
+export { BottomNavigation, TabKey } from '@/app/components/tabs/BottomNavigation';

@@ -1,7 +1,7 @@
 import * as Clipboard from 'expo-clipboard';
 import { Share } from 'react-native';
 
-import { buildInviteMessage, generateReferralCode } from '@/app/(tabs)/Home/home.helpers';
+import { buildInviteMessage, generateReferralCode } from '@/src/utils/home.helpers';
 
 export type ReferralMilestone = {
   id: string;

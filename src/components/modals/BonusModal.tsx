@@ -1,1 +1,1 @@
-export * from '@/app/components/modals/BonusModal';
+export { BonusModal } from '@/app/components/modals/BonusModal';

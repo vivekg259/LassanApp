@@ -9,8 +9,6 @@ import { Animated, Dimensions, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { setupNetworkStatsSimulation, setupReferralNowInterval } from '@/app/(tabs)/Home/home.effects';
-import { calculateMiningRates, formatNumber, generateReferralCode, getReferralCounts } from '@/app/(tabs)/Home/home.helpers';
-import { measureHomeAnchorsAction, scheduleInitialMeasurements, setupResizeMeasurementObserver } from '@/app/(tabs)/Home/home.measure';
 import { THEME } from '@/constants/theme';
 import { runBundleSnapAnimation, runFadeInOnTabChange, runModalScaleOnOpen, setupBreathingAnimation, setupDualAnimatedValueMirrors } from '@/src/animations/home.animations';
 import { applyAdReward, startAdSimulation, type AdAction } from '@/src/engines/ads/home.ad';
@@ -28,6 +26,8 @@ import { updateDailyBonusAvailability } from '@/src/engines/rewards/home.bonus';
 import { handleSocialTaskAction, type SocialTaskStatus } from '@/src/engines/social/home.social';
 import { closeAlertAction, showConfirmAlertAction, showInfoAlertAction, type CustomAlertState } from '@/src/hooks/alertActions';
 import { confirmLogout, handleMenuPressAction } from '@/src/hooks/userActions';
+import { calculateMiningRates, formatNumber, generateReferralCode, getReferralCounts } from '@/src/utils/home.helpers';
+import { measureHomeAnchorsAction, scheduleInitialMeasurements, setupResizeMeasurementObserver } from '@/src/utils/home.measure';
 import { computeStageLayout } from '@/src/utils/layout';
 
 // Re-export formatNumber for components that need it

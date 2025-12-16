@@ -16,24 +16,24 @@ import {
   View,
 } from 'react-native';
 
-import { AppHeader } from '@/app/(tabs)/Home/components/AppHeader';
-import { ExploreTab } from '@/app/(tabs)/Home/components/ExploreTab';
-import { HomeBottomActions } from '@/app/(tabs)/Home/components/HomeBottomActions';
-import { HomeCenterHub } from '@/app/(tabs)/Home/components/HomeCenterHub';
-import { HomeCircuitBackground } from '@/app/(tabs)/Home/components/HomeCircuitBackground';
-import { HomeTopActions } from '@/app/(tabs)/Home/components/HomeTopActions';
-import { ReferralTab } from '@/app/(tabs)/Home/components/ReferralTab';
-import { RewardsTab } from '@/app/(tabs)/Home/components/RewardsTab';
-import { UserTab } from '@/app/(tabs)/Home/components/UserTab';
 import { BonusModal } from '@/app/components/modals/BonusModal';
 import { BoostModal } from '@/app/components/modals/BoostModal';
 import { CustomAlertModal } from '@/app/components/modals/CustomAlertModal';
 import { LanguageSelectionModal } from '@/app/components/modals/LanguageSelectionModal';
 import { BottomNavigation, type TabKey } from '@/app/components/tabs/BottomNavigation';
 import { THEME } from '@/constants/theme';
+import { ExploreTab } from '@/src/components/ExploreTab';
+import { AppHeader } from '@/src/components/Header';
+import { HomeBottomActions } from '@/src/components/HomeBottomActions';
+import { HomeCenterHub } from '@/src/components/HomeCenterHub';
+import { HomeCircuitBackground } from '@/src/components/HomeCircuitBackground';
+import { HomeTopActions } from '@/src/components/HomeTopActions';
+import { ReferralTab } from '@/src/screens/ReferralScreen';
+import { RewardsTab } from '@/src/screens/RewardsScreen';
+import { UserTab } from '@/src/screens/UserScreen';
 
-import { homeStyles as styles, scale, verticalScale } from '@/app/(tabs)/Home/home.styles';
-import { useHomeScreen, formatNumber } from '@/app/(tabs)/Home/hooks/useHomeScreen';
+import { scale, homeStyles as styles, verticalScale } from '@/app/(tabs)/Home/home.styles';
+import { formatNumber, useHomeScreen } from '@/app/(tabs)/Home/hooks/useHomeScreen';
 
 // Web compatibility: Gradients via url(#id) can be flaky on some web renderers
 const circuitStroke = Platform.OS === 'web' ? THEME.accent : "url(#circuitGrad)";

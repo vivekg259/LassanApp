@@ -1,2 +1,2 @@
-export * from '@/app/(tabs)/Home/components/ReferralTab';
+export { ReferralTab } from '@/app/(tabs)/Home/components/ReferralTab';
 

@@ -1,4 +1,4 @@
-import { getISTDate } from '@/app/(tabs)/Home/home.helpers';
+import { getISTDate } from '@/src/utils/home.helpers';
 
 export type AdAction = 'mining' | 'daily_bonus' | 'weekly_bonus' | 'boost';
 
