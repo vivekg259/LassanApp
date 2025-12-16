@@ -1,4 +1,5 @@
-import { diffDaysUtc, getISTDate } from './home.helpers';
+import { getISTDate } from '@/app/(tabs)/Home/home.helpers';
+import { diffDaysUtc } from './mining.helpers';
 
 type SetState<T> = (value: T | ((prev: T) => T)) => void;
 

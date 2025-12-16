@@ -1,5 +1,5 @@
-import { type AdAction } from './home.ad';
-import { tickHmsCountdown } from './home.helpers';
+import { type AdAction } from '@/src/engines/ads/home.ad';
+import { tickHmsCountdown } from './mining.helpers';
 
 type SetState<T> = (value: T | ((prev: T) => T)) => void;
 

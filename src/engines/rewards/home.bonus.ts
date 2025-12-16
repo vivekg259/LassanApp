@@ -1,4 +1,4 @@
-import { getISTDate } from './home.helpers';
+import { getISTDate } from '@/app/(tabs)/Home/home.helpers';
 
 type SetState<T> = (value: T | ((prev: T) => T)) => void;
 
