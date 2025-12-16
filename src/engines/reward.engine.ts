@@ -1,3 +1,3 @@
-export * from './rewards/home.bonus';
-export * from './rewards/home.social';
+export * from '@/src/engines/rewards/home.bonus';
+export * from '@/src/engines/rewards/home.social';
 

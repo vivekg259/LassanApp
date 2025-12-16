@@ -1,3 +1,2 @@
-import Rewards from '@/app/(tabs)/rewards';
-
-export default Rewards;
+import { RewardsTab } from '@/app/(tabs)/Home/components/RewardsTab';
+export default RewardsTab;
