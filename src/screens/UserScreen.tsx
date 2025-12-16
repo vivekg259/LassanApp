@@ -1,2 +1,1 @@
-import { UserTab } from '@/app/(tabs)/Home/components/UserTab';
-export default UserTab;
+export * from '@/app/(tabs)/Home/components/UserTab';

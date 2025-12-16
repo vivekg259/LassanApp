@@ -1,2 +1,1 @@
-import Explore from '@/app/(tabs)/explore';
-export default Explore;
+export * from '@/app/(tabs)/explore';

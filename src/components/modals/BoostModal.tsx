@@ -1,2 +1,1 @@
-import { BoostModal } from '@/app/components/modals/BoostModal';
-export default BoostModal;
+export * from '@/app/components/modals/BoostModal';

@@ -1,2 +1,1 @@
-import { BottomNavigation } from '@/app/components/tabs/BottomNavigation';
-export default BottomNavigation;
+export * from '@/app/components/tabs/BottomNavigation';
