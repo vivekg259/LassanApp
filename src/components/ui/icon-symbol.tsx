@@ -1,4 +1,4 @@
-export * from '@/src/components/ui/icon-symbol'; // Fallback for using MaterialIcons on Android and web.
+// Fallback for using MaterialIcons on Android and web.
 
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { SymbolViewProps, SymbolWeight } from 'expo-symbols';

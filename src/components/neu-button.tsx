@@ -1,6 +1,7 @@
-import { THEME } from '@/app/(tabs)/Home/utils';
 import React, { useRef } from 'react';
 import { Animated, Platform, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
+
+import { THEME } from '@/constants/theme';
 
 interface NeuButtonProps {
   children?: React.ReactNode;
