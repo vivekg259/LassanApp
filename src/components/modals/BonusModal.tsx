@@ -2,8 +2,8 @@ import React from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
 
-import { NeuButton } from '@/src/components/NeuButton';
 import { THEME } from '@/constants/theme';
+import { NeuButton } from '@/src/components/NeuButton';
 
 type Props = {
   styles: any;

@@ -1,4 +1,5 @@
-export * from '@/src/components/ui/icon-symbol.ios';import { SymbolView, SymbolViewProps, SymbolWeight } from 'expo-symbols';
+export * from '@/src/components/ui/icon-symbol.ios';
+import { SymbolView, SymbolViewProps, SymbolWeight } from 'expo-symbols';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export function IconSymbol({
