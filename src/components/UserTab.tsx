@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Line, Path, Polygon, Polyline, Rect } from 'react-native-svg';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 
 type UserTabProps = {
   scale: (size: number) => number;

@@ -8,7 +8,7 @@ import {
     ViewStyle,
 } from 'react-native';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 
 type NeuButtonProps = {
   children?: React.ReactNode;

@@ -2,15 +2,15 @@
  * useHomeScreen - Custom hook containing all HomeScreen state, effects, and handlers
  * Extracted from index.tsx to keep the main component clean and focused on JSX.
  */
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/src/context/LanguageContext';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { setupNetworkStatsSimulation, setupReferralNowInterval } from '@/src/effects/home.effects';
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 import { runBundleSnapAnimation, runFadeInOnTabChange, runModalScaleOnOpen, setupBreathingAnimation, setupDualAnimatedValueMirrors } from '@/src/animations/home.animations';
+import { setupNetworkStatsSimulation, setupReferralNowInterval } from '@/src/effects/home.effects';
 import { applyAdReward, startAdSimulation, type AdAction } from '@/src/engines/ads/home.ad';
 import { activateBoostSession, handleBoostPressAction, setupBoostCountdown } from '@/src/engines/boost/home.boost';
 import { handlePowerPressAction, setupMiningSessionInterval } from '@/src/engines/mining/home.mining';

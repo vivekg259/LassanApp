@@ -1,4 +1,4 @@
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/src/context/LanguageContext';
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {

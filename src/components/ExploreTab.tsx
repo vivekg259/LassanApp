@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, ScrollView, Text, View } from 'react-native';
 import Svg, { Circle, Defs, Ellipse, Line, Path, Polyline, Rect, Stop, LinearGradient as SvgLinearGradient } from 'react-native-svg';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 
 type ExploreTabProps = {
   scale: (size: number) => number;

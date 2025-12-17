@@ -16,7 +16,7 @@ import {
   View,
 } from 'react-native';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 import { BottomNavigation, type TabKey } from '@/src/components/BottomNav';
 import { ExploreTab } from '@/src/components/ExploreTab';
 import { AppHeader } from '@/src/components/Header';
@@ -32,7 +32,7 @@ import { ReferralTab } from '@/src/screens/ReferralScreen';
 import { RewardsTab } from '@/src/screens/RewardsScreen';
 import { UserTab } from '@/src/screens/UserScreen';
 
-import { scale, homeStyles as styles, verticalScale } from '@/app/(tabs)/Home/home.styles';
+import { scale, homeStyles as styles, verticalScale } from '@/src/styles/home.styles';
 import { formatNumber, useHomeScreen } from '@/src/hooks/useHomeScreen';
 
 // Web compatibility: Gradients via url(#id) can be flaky on some web renderers

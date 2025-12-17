@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Animated, Platform, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 
 interface NeuButtonProps {
   children?: React.ReactNode;

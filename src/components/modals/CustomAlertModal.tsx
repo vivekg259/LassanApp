@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 
 type Props = {
   styles: any;

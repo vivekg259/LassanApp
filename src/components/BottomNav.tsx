@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import Svg, { Circle, Line, Path, Polygon, Polyline, Rect } from 'react-native-svg';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 import { NeuButton } from '@/src/components/NeuButton';
 
 export type TabKey = 'home' | 'rewards' | 'referral' | 'explore' | 'user';

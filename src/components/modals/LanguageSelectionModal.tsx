@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import { LANGUAGES } from '@/constants/languageOptions';
+import { LANGUAGES } from '@/src/constants/languageOptions';
 
 type Props = {
   styles: any;

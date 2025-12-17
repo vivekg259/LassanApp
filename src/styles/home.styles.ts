@@ -2,7 +2,7 @@
  * HOME SCREEN STYLES
  * Extracted from index.tsx to keep main component file clean and maintainable.
  */
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/src/constants/theme';
 import { Dimensions, Platform, StyleSheet } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
