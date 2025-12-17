@@ -1,2 +1,2 @@
-export { UserTab } from '@/app/(tabs)/Home/components/UserTab';
+export { UserTab } from '@/src/components/UserTab';
 

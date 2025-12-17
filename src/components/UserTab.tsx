@@ -1,4 +1,3 @@
-export * from '@/src/components/UserTab';
 import React, { useState } from 'react';
 import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Line, Path, Polygon, Polyline, Rect } from 'react-native-svg';

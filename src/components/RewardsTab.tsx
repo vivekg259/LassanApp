@@ -1,4 +1,3 @@
-export * from '@/src/components/RewardsTab';
 import React from 'react';
 import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Line, Path, Polygon, Polyline } from 'react-native-svg';

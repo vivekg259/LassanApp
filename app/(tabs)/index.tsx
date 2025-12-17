@@ -16,18 +16,18 @@ import {
   View,
 } from 'react-native';
 
-import { BonusModal } from '@/app/components/modals/BonusModal';
-import { BoostModal } from '@/app/components/modals/BoostModal';
-import { CustomAlertModal } from '@/app/components/modals/CustomAlertModal';
-import { LanguageSelectionModal } from '@/app/components/modals/LanguageSelectionModal';
-import { BottomNavigation, type TabKey } from '@/app/components/tabs/BottomNavigation';
 import { THEME } from '@/constants/theme';
+import { BottomNavigation, type TabKey } from '@/src/components/BottomNav';
 import { ExploreTab } from '@/src/components/ExploreTab';
 import { AppHeader } from '@/src/components/Header';
 import { HomeBottomActions } from '@/src/components/HomeBottomActions';
 import { HomeCenterHub } from '@/src/components/HomeCenterHub';
 import { HomeCircuitBackground } from '@/src/components/HomeCircuitBackground';
 import { HomeTopActions } from '@/src/components/HomeTopActions';
+import { BonusModal } from '@/src/components/modals/BonusModal';
+import { BoostModal } from '@/src/components/modals/BoostModal';
+import { CustomAlertModal } from '@/src/components/modals/CustomAlertModal';
+import { LanguageSelectionModal } from '@/src/components/modals/LanguageSelectionModal';
 import { ReferralTab } from '@/src/screens/ReferralScreen';
 import { RewardsTab } from '@/src/screens/RewardsScreen';
 import { UserTab } from '@/src/screens/UserScreen';

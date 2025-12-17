@@ -1,2 +1,2 @@
-export { ReferralTab } from '@/app/(tabs)/Home/components/ReferralTab';
+export { ReferralTab } from '@/src/components/ReferralTab';
 

@@ -1,1 +1,1 @@
-export * from '@/components/external-link';
+export * from '@/src/components/external-link';

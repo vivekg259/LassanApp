@@ -1,1 +1,1 @@
-export * from '@/components/parallax-scroll-view';
+export * from '@/src/components/parallax-scroll-view';

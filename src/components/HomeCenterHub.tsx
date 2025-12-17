@@ -1,8 +1,8 @@
 import React from 'react';
 import { Animated, ImageSourcePropType, View } from 'react-native';
 
-import { HomeHubTraces } from '@/app/(tabs)/Home/components/HomeHubTraces';
-import { NeuButton } from '@/app/(tabs)/Home/components/NeuButton';
+import { HomeHubTraces } from '@/src/components/HomeHubTraces';
+import { NeuButton } from '@/src/components/NeuButton';
 import { THEME } from '@/constants/theme';
 
 type AnyRef = React.RefObject<any>;

@@ -1,4 +1,3 @@
-export * from '@/src/components/ReferralTab';
 import React from 'react';
 import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Line, Path, Rect } from 'react-native-svg';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import { NeuButton } from '@/app/(tabs)/Home/components/NeuButton';
+import { NeuButton } from '@/src/components/NeuButton';
 
 type AnyRef = React.RefObject<any>;
 
