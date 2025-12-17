@@ -33,7 +33,7 @@ import { RewardsTab } from '@/src/screens/RewardsScreen';
 import { UserTab } from '@/src/screens/UserScreen';
 
 import { scale, homeStyles as styles, verticalScale } from '@/app/(tabs)/Home/home.styles';
-import { formatNumber, useHomeScreen } from '@/app/(tabs)/Home/hooks/useHomeScreen';
+import { formatNumber, useHomeScreen } from '@/src/hooks/useHomeScreen';
 
 // Web compatibility: Gradients via url(#id) can be flaky on some web renderers
 const circuitStroke = Platform.OS === 'web' ? THEME.accent : "url(#circuitGrad)";
