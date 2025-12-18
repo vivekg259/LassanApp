@@ -16,7 +16,6 @@ import {
   View,
 } from 'react-native';
 
-import { THEME } from '@/src/constants/theme';
 import { BottomNavigation, type TabKey } from '@/src/components/BottomNav';
 import { ExploreTab } from '@/src/components/ExploreTab';
 import { AppHeader } from '@/src/components/Header';
@@ -28,12 +27,13 @@ import { BonusModal } from '@/src/components/modals/BonusModal';
 import { BoostModal } from '@/src/components/modals/BoostModal';
 import { CustomAlertModal } from '@/src/components/modals/CustomAlertModal';
 import { LanguageSelectionModal } from '@/src/components/modals/LanguageSelectionModal';
+import { THEME } from '@/src/constants/theme';
 import { ReferralTab } from '@/src/screens/ReferralScreen';
 import { RewardsTab } from '@/src/screens/RewardsScreen';
 import { UserTab } from '@/src/screens/UserScreen';
 
-import { scale, homeStyles as styles, verticalScale } from '@/src/styles/home.styles';
 import { formatNumber, useHomeScreen } from '@/src/hooks/useHomeScreen';
+import { scale, homeStyles as styles, verticalScale } from '@/src/styles/home.styles';
 
 // Web compatibility: Gradients via url(#id) can be flaky on some web renderers
 const circuitStroke = Platform.OS === 'web' ? THEME.accent : "url(#circuitGrad)";

@@ -8,8 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { THEME } from '@/src/constants/theme';
 import { runBundleSnapAnimation, runFadeInOnTabChange, runModalScaleOnOpen, setupBreathingAnimation, setupDualAnimatedValueMirrors } from '@/src/animations/home.animations';
+import { THEME } from '@/src/constants/theme';
 import { setupNetworkStatsSimulation, setupReferralNowInterval } from '@/src/effects/home.effects';
 import { applyAdReward, startAdSimulation, type AdAction } from '@/src/engines/ads/home.ad';
 import { activateBoostSession, handleBoostPressAction, setupBoostCountdown } from '@/src/engines/boost/home.boost';
