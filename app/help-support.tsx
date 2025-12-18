@@ -15,10 +15,14 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Polyline } from 'react-native-svg';
 
-// Enable LayoutAnimation on Android
+// Enable LayoutAnimation on Android (silent for new architecture)
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
+    try {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    } catch (e) {
+      // Silently handle - not needed in new architecture
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { Translations } from '@/src/constants/Languages';
+import { Translations } from '@/src/constants/languages';
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 type Language = 'en' | 'hi';
