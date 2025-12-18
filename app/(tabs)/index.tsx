@@ -1,4 +1,9 @@
 /**
+ * Screen Type: Route
+ * Owns: Main mining interface with circuit animation, multi-tab content switcher (Home, Explore, Referrals, Rewards, User)
+ * Scope: Container
+ * Reuse: Not reusable outside routing
+ *
  * UI DESIGN FINAL LOCKED - DO NOT MODIFY VISUAL ELEMENTS WITHOUT EXPLICIT INSTRUCTION
  * Locked State: Motherboard Circuit Design (Responsive), 7 Vertical Spines, Animated Transitions,
  * Neumorphic Buttons, Layering (z-index), and specific Color Theme.
@@ -27,12 +32,13 @@ import { BonusModal } from '@/src/components/modals/BonusModal';
 import { BoostModal } from '@/src/components/modals/BoostModal';
 import { CustomAlertModal } from '@/src/components/modals/CustomAlertModal';
 import { LanguageSelectionModal } from '@/src/components/modals/LanguageSelectionModal';
+import { ReferralTab } from '@/src/components/ReferralTab';
+import { RewardsTab } from '@/src/components/RewardsTab';
+import { UserTab } from '@/src/components/UserTab';
 import { THEME } from '@/src/constants/theme';
-import { ReferralTab } from '@/src/screens/ReferralScreen';
-import { RewardsTab } from '@/src/screens/RewardsScreen';
-import { UserTab } from '@/src/screens/UserScreen';
 
-import { formatNumber, useHomeScreen } from '@/src/hooks/useHomeScreen';
+import { formatNumber } from '@/src/hooks/useHomeScreen';
+import { useHomeContainer } from '@/src/screens/home/useHomeContainer';
 import { scale, homeStyles as styles, verticalScale } from '@/src/styles/home.styles';
 
 // Web compatibility: Gradients via url(#id) can be flaky on some web renderers
@@ -144,7 +150,7 @@ export default function HomeScreen() {
     handleBoostPress,
     triggerAd,
     measureButtons,
-  } = useHomeScreen();
+  } = useHomeContainer();
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>

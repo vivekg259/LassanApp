@@ -1,7 +1,12 @@
-import { Stack, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+/**
+ * Screen Type: Route
+ * Owns: User profile editor (name, username, email, phone, address, referrer code)
+ * Scope: Self-contained
+ * Reuse: Not reusable outside routing
+ */
+import { Stack } from 'expo-router';
+import React from 'react';
 import {
-    Dimensions,
     KeyboardAvoidingView,
     Modal,
     Platform,
@@ -12,111 +17,34 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Polyline } from 'react-native-svg';
 
-// --- THEME CONSTANTS (Copied from index.tsx for consistency) ---
-const THEME = {
-  bg: '#f5ede1',
-  text: '#5a4a3a',
-  textSecondary: '#8b7355',
-  shadowLight: '#ffffff',
-  shadowDark: '#c4b5a0', 
-  accent: '#d4af37',
-  accentDark: '#a68c1c',
-  overlay: 'rgba(255, 255, 255, 0.5)',
-  overlayDark: 'rgba(90, 74, 58, 0.08)'
-};
-
-const { width } = Dimensions.get('window');
-const isTablet = width >= 768;
-const scaleWidth = isTablet ? width * 0.6 : width;
-const scale = (size: number): number => (scaleWidth / 375) * size;
+import { THEME } from '@/src/constants/theme';
+import { usePersonalInfo } from '@/src/screens/personal-info/usePersonalInfo';
 
 export default function PersonalInfoScreen() {
-  const router = useRouter();
-  const insets = useSafeAreaInsets();
-
-  const [name, setName] = useState('Vivek Gupta');
-  const [nameChangeCount, setNameChangeCount] = useState(0);
-  const [username, setUsername] = useState('');
-  const [referrerCode, setReferrerCode] = useState('');
-  const [isReferrerLocked, setIsReferrerLocked] = useState(false);
-  const [email, setEmail] = useState('vivek.gupta@example.com');
-  const [phone, setPhone] = useState('+91 98765 43210');
-  const [address, setAddress] = useState('Mumbai, India');
-
-  // Custom Alert State
-  const [customAlert, setCustomAlert] = useState<{
-    visible: boolean;
-    title: string;
-    message: string;
-    type: 'info' | 'confirm';
-    onConfirm?: () => void;
-    confirmText?: string;
-    cancelText?: string;
-  }>({
-    visible: false,
-    title: '',
-    message: '',
-    type: 'info'
-  });
-
-  const showInfoAlert = (title: string, message: string, onConfirm?: () => void) => {
-    setCustomAlert({
-      visible: true,
-      title,
-      message,
-      type: 'info',
-      onConfirm
-    });
-  };
-
-  const closeAlert = () => {
-    setCustomAlert(prev => ({ ...prev, visible: false }));
-  };
-
-  // Mock existing usernames for validation
-  const EXISTING_USERNAMES = ['admin', 'lassan', 'vivek', 'testuser'];
-
-  const handleUpdate = () => {
-    // Validate Username
-    if (username.trim().length > 0) {
-        const cleanUsername = username.trim();
-        const isAlphanumeric = /^[a-zA-Z0-9]+$/.test(cleanUsername);
-        
-        if (!isAlphanumeric) {
-            showInfoAlert('Invalid Username', 'Username must contain only alphanumeric characters.');
-            return;
-        }
-
-        if (EXISTING_USERNAMES.includes(cleanUsername.toLowerCase())) {
-            showInfoAlert('Username Taken', 'This username is already taken. Please choose a unique one.');
-            return;
-        }
-    }
-
-    // Handle Name Change Limit
-    if (name !== 'Vivek Gupta') { // Assuming 'Vivek Gupta' was the initial name
-        if (nameChangeCount >= 2) {
-            showInfoAlert('Limit Reached', 'You have reached the maximum limit of 2 name changes.');
-            return;
-        }
-        setNameChangeCount(prev => prev + 1);
-    }
-
-    // Handle Referral Code
-    if (referrerCode.trim().length > 0 && !isReferrerLocked) {
-        // Simulate referral validation
-        setIsReferrerLocked(true);
-        showInfoAlert('Referral Success', 'Referral code applied! Your base mining rate has increased by 10%.');
-    }
-
-    // In a real app, this would make an API call
-    showInfoAlert('Success', 'Profile updated successfully!', () => {
-        router.back();
-    });
-  };
+  const {
+    router,
+    insets,
+    name,
+    setName,
+    nameChangeCount,
+    username,
+    setUsername,
+    referrerCode,
+    setReferrerCode,
+    isReferrerLocked,
+    email,
+    setEmail,
+    phone,
+    setPhone,
+    address,
+    setAddress,
+    customAlert,
+    closeAlert,
+    handleUpdate,
+    scale,
+  } = usePersonalInfo();
 
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>

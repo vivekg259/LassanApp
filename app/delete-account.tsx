@@ -1,16 +1,21 @@
-import { Stack, useRouter } from 'expo-router';
+/**
+ * Screen Type: Route
+ * Owns: Account deletion confirmation flow with warnings and final approval
+ * Scope: Self-contained
+ * Reuse: Not reusable outside routing
+ */
+import { Stack } from 'expo-router';
 import React from 'react';
 import {
-    Alert,
-    Dimensions,
     Platform,
     ScrollView,
     Text,
     TouchableOpacity,
     View
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Path, Polyline } from 'react-native-svg';
+
+import { useDeleteAccount } from '@/src/screens/delete-account/useDeleteAccount';
 
 // --- THEME CONSTANTS ---
 const THEME = {
@@ -22,33 +27,13 @@ const THEME = {
   danger: '#D32F2F',
 };
 
-const { width } = Dimensions.get('window');
-const isTablet = width >= 768;
-const scaleWidth = isTablet ? width * 0.6 : width;
-const scale = (size: number): number => (scaleWidth / 375) * size;
-
 export default function DeleteAccountScreen() {
-  const router = useRouter();
-  const insets = useSafeAreaInsets();
-
-  const handleFinalDelete = () => {
-    Alert.alert(
-        'Final Confirmation',
-        'This is your last chance. Are you absolutely sure?',
-        [
-            { text: 'Cancel', style: 'cancel' },
-            { 
-                text: 'Yes, Delete Everything', 
-                style: 'destructive',
-                onPress: () => {
-                    // Simulate deletion
-                    Alert.alert('Account Deleted', 'We are sad to see you go. Your account has been deleted.');
-                    router.replace('/'); // Navigate to login/home
-                }
-            }
-        ]
-    );
-  };
+  const {
+    router,
+    insets,
+    handleFinalDelete,
+    scale,
+  } = useDeleteAccount();
 
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>

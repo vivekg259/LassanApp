@@ -1,3 +1,9 @@
+/**
+ * Screen Type: Layout
+ * Owns: Root navigation structure and global providers
+ * Scope: Layout
+ * Reuse: Not reusable outside routing
+ */
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';

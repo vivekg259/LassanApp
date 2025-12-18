@@ -1,10 +1,13 @@
+/**
+ * Screen Type: Route
+ * Owns: FAQ accordion, contact support links (email, Telegram)
+ * Scope: Self-contained
+ * Reuse: Not reusable outside routing
+ */
 import { useLanguage } from '@/src/context/LanguageContext';
-import { Stack, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { Stack } from 'expo-router';
+import React from 'react';
 import {
-    Dimensions,
-    LayoutAnimation,
-    Linking,
     Platform,
     ScrollView,
     Text,
@@ -12,8 +15,9 @@ import {
     UIManager,
     View
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Polyline } from 'react-native-svg';
+
+import { useHelpSupport } from '@/src/screens/help-support/useHelpSupport';
 
 // Enable LayoutAnimation on Android (silent for new architecture)
 if (Platform.OS === 'android') {
@@ -39,21 +43,16 @@ const THEME = {
   overlayDark: 'rgba(90, 74, 58, 0.08)'
 };
 
-const { width } = Dimensions.get('window');
-const isTablet = width >= 768;
-const scaleWidth = isTablet ? width * 0.6 : width;
-const scale = (size: number): number => (scaleWidth / 375) * size;
-
 export default function HelpSupportScreen() {
-  const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { t } = useLanguage();
-  const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
-
-  const toggleFaq = (id: string) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setExpandedFaq(expandedFaq === id ? null : id);
-  };
+  const {
+    router,
+    insets,
+    expandedFaq,
+    toggleFaq,
+    handleContact,
+    scale,
+  } = useHelpSupport();
 
   const faqs = [
     { id: '1', question: t('faq_mining_q'), answer: t('faq_mining_a') },
@@ -65,14 +64,6 @@ export default function HelpSupportScreen() {
     { id: '7', question: t('faq_value_q'), answer: t('faq_value_a') },
     { id: '8', question: t('faq_multiple_q'), answer: t('faq_multiple_a') },
   ];
-
-  const handleContact = (type: 'email' | 'telegram') => {
-    if (type === 'email') {
-      Linking.openURL('mailto:support@lassan.network');
-    } else {
-      Linking.openURL('https://t.me/LassanSupport');
-    }
-  };
 
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>

@@ -1,3 +1,9 @@
+/**
+ * Screen Type: Layout
+ * Owns: Bottom tab navigation with Home and Explore tabs
+ * Scope: Layout
+ * Reuse: Not reusable outside routing
+ */
 import { Tabs } from 'expo-router';
 import React from 'react';
 

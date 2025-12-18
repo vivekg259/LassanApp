@@ -1,3 +1,9 @@
+/**
+ * Screen Type: Route
+ * Owns: Example/demo screen with collapsible content and documentation links
+ * Scope: Self-contained
+ * Reuse: Not reusable outside routing
+ */
 import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 

@@ -1,3 +1,9 @@
+/**
+ * Screen Type: Modal
+ * Owns: Generic modal placeholder with navigation link
+ * Scope: Modal
+ * Reuse: Not reusable outside routing
+ */
 import { Link } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
