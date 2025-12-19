@@ -45,14 +45,11 @@ const THEME = {
 
 export default function HelpSupportScreen() {
   const { t } = useLanguage();
-  const {
-    router,
-    insets,
-    expandedFaq,
-    toggleFaq,
-    handleContact,
-    scale,
-  } = useHelpSupport();
+  const { state, actions } = useHelpSupport();
+
+  // Destructure for convenience
+  const { router, insets, expandedFaq, scale } = state;
+  const { toggleFaq, handleContact } = actions;
 
   const faqs = [
     { id: '1', question: t('faq_mining_q'), answer: t('faq_mining_a') },

@@ -21,9 +21,9 @@ import {
   View,
 } from 'react-native';
 
+import { AppHeader } from '@/src/components/AppHeader';
 import { BottomNavigation, type TabKey } from '@/src/components/BottomNav';
 import { ExploreTab } from '@/src/components/ExploreTab';
-import { AppHeader } from '@/src/components/Header';
 import { HomeBottomActions } from '@/src/components/HomeBottomActions';
 import { HomeCenterHub } from '@/src/components/HomeCenterHub';
 import { HomeCircuitBackground } from '@/src/components/HomeCircuitBackground';
@@ -46,6 +46,9 @@ const circuitStroke = Platform.OS === 'web' ? THEME.accent : "url(#circuitGrad)"
 const hubStroke = Platform.OS === 'web' ? THEME.accent : "url(#hubGrad)";
 
 export default function HomeScreen() {
+  const { state, actions, flags } = useHomeContainer();
+
+  // Destructure for convenience
   const {
     // Context
     t,
@@ -74,16 +77,10 @@ export default function HomeScreen() {
     totalMiners,
     lsnMined,
     
-    // Ad State
-    isAdWatching,
-    
     // Boost State
     boostActive,
     boostTimeLeft,
     boostsUsedToday,
-    
-    // Daily Bonus State
-    isDailyBonusAvailable,
     
     // Streak State
     miningStreak,
@@ -104,8 +101,6 @@ export default function HomeScreen() {
     
     // Alert State
     customAlert,
-    closeAlert,
-    showInfoAlert,
     
     // Animation State
     fadeAnim,
@@ -137,8 +132,9 @@ export default function HomeScreen() {
     powerColor,
     currentRate,
     flatStyle,
-    
-    // Handlers
+  } = state;
+
+  const {
     handleCopyCode,
     handleNotify,
     handleShareInvite,
@@ -150,7 +146,11 @@ export default function HomeScreen() {
     handleBoostPress,
     triggerAd,
     measureButtons,
-  } = useHomeContainer();
+    closeAlert,
+    showInfoAlert,
+  } = actions;
+
+  const { isAdWatching, isDailyBonusAvailable, isTablet } = flags;
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>

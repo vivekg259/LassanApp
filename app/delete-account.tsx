@@ -28,12 +28,11 @@ const THEME = {
 };
 
 export default function DeleteAccountScreen() {
-  const {
-    router,
-    insets,
-    handleFinalDelete,
-    scale,
-  } = useDeleteAccount();
+  const { state, actions } = useDeleteAccount();
+
+  // Destructure for convenience
+  const { router, insets, scale } = state;
+  const { handleFinalDelete } = actions;
 
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>

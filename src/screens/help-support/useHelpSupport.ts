@@ -1,6 +1,7 @@
 /**
  * Hook for HelpSupportScreen
  * Contains all state and handlers (logic only)
+ * Returns normalized { state, actions, flags } shape
  */
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -31,18 +32,23 @@ export function useHelpSupport() {
   };
 
   return {
-    // Router & Insets
-    router,
-    insets,
-    
-    // State
-    expandedFaq,
-    
-    // Handlers
-    toggleFaq,
-    handleContact,
-    
-    // Utils
-    scale,
+    state: {
+      // Router & Insets
+      router,
+      insets,
+      
+      // FAQ State
+      expandedFaq,
+      
+      // Utils
+      scale,
+    },
+
+    actions: {
+      toggleFaq,
+      handleContact,
+    },
+
+    flags: {},
   };
 }

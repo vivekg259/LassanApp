@@ -1,11 +1,13 @@
 /**
  * Hook for PersonalInfoScreen
  * Contains all state, validation logic, and handlers
+ * Returns normalized { state, actions, flags } shape
  */
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { userDomain } from '../../domains/user';
 
 const { width } = Dimensions.get('window');
 const isTablet = width >= 768;
@@ -55,77 +57,55 @@ export function usePersonalInfo() {
     setCustomAlert(prev => ({ ...prev, visible: false }));
   };
 
-  // Mock existing usernames for validation
-  const EXISTING_USERNAMES = ['admin', 'lassan', 'vivek', 'testuser'];
-
   const handleUpdate = () => {
-    // Validate Username
-    if (username.trim().length > 0) {
-        const cleanUsername = username.trim();
-        const isAlphanumeric = /^[a-zA-Z0-9]+$/.test(cleanUsername);
-        
-        if (!isAlphanumeric) {
-            showInfoAlert('Invalid Username', 'Username must contain only alphanumeric characters.');
-            return;
-        }
-
-        if (EXISTING_USERNAMES.includes(cleanUsername.toLowerCase())) {
-            showInfoAlert('Username Taken', 'This username is already taken. Please choose a unique one.');
-            return;
-        }
-    }
-
-    // Handle Name Change Limit
-    if (name !== 'Vivek Gupta') { // Assuming 'Vivek Gupta' was the initial name
-        if (nameChangeCount >= 2) {
-            showInfoAlert('Limit Reached', 'You have reached the maximum limit of 2 name changes.');
-            return;
-        }
-        setNameChangeCount(prev => prev + 1);
-    }
-
-    // Handle Referral Code
-    if (referrerCode.trim().length > 0 && !isReferrerLocked) {
-        // Simulate referral validation
-        setIsReferrerLocked(true);
-        showInfoAlert('Referral Success', 'Referral code applied! Your base mining rate has increased by 10%.');
-    }
-
-    // In a real app, this would make an API call
-    showInfoAlert('Success', 'Profile updated successfully!', () => {
-        router.back();
+    userDomain.updateProfile({
+      name,
+      username,
+      referrerCode,
+      nameChangeCount,
+      isReferrerLocked,
+      showInfoAlert,
+      setNameChangeCount,
+      setIsReferrerLocked,
+      router,
     });
   };
 
   return {
-    // Router & Insets
-    router,
-    insets,
-    
-    // State
-    name,
-    setName,
-    nameChangeCount,
-    username,
-    setUsername,
-    referrerCode,
-    setReferrerCode,
-    isReferrerLocked,
-    email,
-    setEmail,
-    phone,
-    setPhone,
-    address,
-    setAddress,
-    
-    // Alert State
-    customAlert,
-    closeAlert,
-    
-    // Handlers
-    handleUpdate,
-    
-    // Utils
-    scale,
+    state: {
+      // Router & Insets
+      router,
+      insets,
+      
+      // Form State
+      name,
+      setName,
+      nameChangeCount,
+      username,
+      setUsername,
+      referrerCode,
+      setReferrerCode,
+      email,
+      setEmail,
+      phone,
+      setPhone,
+      address,
+      setAddress,
+      
+      // Alert State
+      customAlert,
+      
+      // Utils
+      scale,
+    },
+
+    actions: {
+      handleUpdate,
+      closeAlert,
+    },
+
+    flags: {
+      isReferrerLocked,
+    },
   };
 }

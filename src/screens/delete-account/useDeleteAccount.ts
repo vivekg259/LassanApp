@@ -1,10 +1,12 @@
 /**
  * Hook for DeleteAccountScreen
  * Contains all state and handlers
+ * Returns normalized { state, actions, flags } shape
  */
 import { useRouter } from 'expo-router';
 import { Alert, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { userDomain } from '../../domains/user';
 
 const { width } = Dimensions.get('window');
 const isTablet = width >= 768;
@@ -16,33 +18,23 @@ export function useDeleteAccount() {
   const insets = useSafeAreaInsets();
 
   const handleFinalDelete = () => {
-    Alert.alert(
-        'Final Confirmation',
-        'This is your last chance. Are you absolutely sure?',
-        [
-            { text: 'Cancel', style: 'cancel' },
-            { 
-                text: 'Yes, Delete Everything', 
-                style: 'destructive',
-                onPress: () => {
-                    // Simulate deletion
-                    Alert.alert('Account Deleted', 'We are sad to see you go. Your account has been deleted.');
-                    router.replace('/'); // Navigate to login/home
-                }
-            }
-        ]
-    );
+    userDomain.deleteAccount(router, Alert);
   };
 
   return {
-    // Router & Insets
-    router,
-    insets,
-    
-    // Handlers
-    handleFinalDelete,
-    
-    // Utils
-    scale,
+    state: {
+      // Router & Insets
+      router,
+      insets,
+      
+      // Utils
+      scale,
+    },
+
+    actions: {
+      handleFinalDelete,
+    },
+
+    flags: {},
   };
 }

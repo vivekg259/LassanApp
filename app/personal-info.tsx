@@ -23,6 +23,9 @@ import { THEME } from '@/src/constants/theme';
 import { usePersonalInfo } from '@/src/screens/personal-info/usePersonalInfo';
 
 export default function PersonalInfoScreen() {
+  const { state, actions, flags } = usePersonalInfo();
+
+  // Destructure for convenience
   const {
     router,
     insets,
@@ -33,7 +36,6 @@ export default function PersonalInfoScreen() {
     setUsername,
     referrerCode,
     setReferrerCode,
-    isReferrerLocked,
     email,
     setEmail,
     phone,
@@ -41,10 +43,11 @@ export default function PersonalInfoScreen() {
     address,
     setAddress,
     customAlert,
-    closeAlert,
-    handleUpdate,
     scale,
-  } = usePersonalInfo();
+  } = state;
+
+  const { handleUpdate, closeAlert } = actions;
+  const { isReferrerLocked } = flags;
 
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>

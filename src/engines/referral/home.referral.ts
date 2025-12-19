@@ -1,7 +1,7 @@
 import * as Clipboard from 'expo-clipboard';
 import { Share } from 'react-native';
 
-import { buildInviteMessage, generateReferralCode } from '@/src/utils/home.helpers';
+import { buildInviteMessage } from '@/src/utils/home.helpers';
 
 export type ReferralMilestone = {
   id: string;
@@ -13,45 +13,45 @@ export type ReferralMilestone = {
   status: 'pending' | 'completed';
 };
 
-let referralCode = generateReferralCode();
-let referralMilestones: ReferralMilestone[] = [
+// Default milestones for initial state (exported for hook initialization)
+export const DEFAULT_REFERRAL_MILESTONES: ReferralMilestone[] = [
   { id: 'ref_3', target: 3, title: 'Invite 3 Friends', rewardDisplay: '300~900', minReward: 350, maxReward: 450, status: 'pending' },
   { id: 'ref_9', target: 9, title: 'Invite 9 Friends', rewardDisplay: '900~2700', minReward: 1000, maxReward: 1200, status: 'pending' },
   { id: 'ref_27', target: 27, title: 'Invite 27 Friends', rewardDisplay: '8100', minReward: 8100, maxReward: 8100, status: 'pending' },
 ];
 
-export function getReferralCode(): string {
-  return referralCode;
-}
-
-export function getReferralCount(): number {
-  return referralMilestones.length;
-}
-
-export function getReferralMilestones(): ReferralMilestone[] {
-  return referralMilestones;
+/**
+ * PURE FUNCTION: Generates a random referral code
+ * Returns a new code each call - caller should persist if needed
+ */
+export function generateReferralCode(): string {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
 type ClaimReferralRewardParams = {
   id: string;
   minReward: number;
   maxReward: number;
+  currentMilestones?: ReferralMilestone[];
 };
 
+/**
+ * PURE FUNCTION: Computes milestone claim result without mutation
+ * Accepts current milestones (optional, defaults to DEFAULT_REFERRAL_MILESTONES), returns updated milestones and reward
+ */
 export function claimReferralMilestoneReward(params: ClaimReferralRewardParams) {
-  const { id, minReward, maxReward } = params;
+  const { id, minReward, maxReward, currentMilestones = DEFAULT_REFERRAL_MILESTONES } = params;
   const reward = Math.floor(Math.random() * (maxReward - minReward + 1)) + minReward;
 
-  const updatedMilestones: ReferralMilestone[] = referralMilestones.map((m) =>
+  const updatedMilestones: ReferralMilestone[] = currentMilestones.map((m) =>
     m.id === id ? { ...m, status: 'completed' } : m
   );
-  referralMilestones = updatedMilestones;
   const milestone = updatedMilestones.find((m) => m.id === id) ?? null;
 
   return {
     reward,
     milestone,
-    updatedMilestones: [...updatedMilestones],
+    updatedMilestones,
   };
 }
 

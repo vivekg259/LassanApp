@@ -70,7 +70,37 @@ const initialReferralMilestones: ReferralMilestone[] = [
   { id: 'ref_27', target: 27, title: 'Invite 27 Friends', rewardDisplay: '8100', minReward: 8100, maxReward: 8100, status: 'pending' },
 ];
 
-export function useHomeScreen() {
+// Optional callbacks for domain wiring (passed from container)
+export type HomeScreenCallbacks = {
+  onPowerPress?: (params: { powerOn: boolean }) => { shouldTriggerAd: boolean; shouldStop: boolean };
+  onTick?: (params: { timeLeft: string; finalMiningRate: number }) => { rewardDelta: number; nextTimeLeft: string; shouldStop: boolean };
+  onClaimDaily?: (params: { lastClaimedDate: string | null }) => { canClaim: boolean; shouldTriggerAd: boolean; action: AdAction | null };
+  onGrantReward?: (
+    params:
+      | { type: 'ad'; action: AdAction; balance: number; miningStreak: number; lastClaimedDate: string | null; t: (key: 'success' | 'bonus_claimed_msg') => string }
+      | { type: 'referral_milestone'; balance: number; id: string; minReward: number; maxReward: number }
+  ) => {
+    decisions: Array<
+      | { type: 'setPowerOn'; value: boolean }
+      | { type: 'updateMiningStreak' }
+      | { type: 'balanceDelta'; delta: number; nextBalance: number }
+      | { type: 'setLastClaimedDate'; value: string }
+      | { type: 'setActiveModal'; value: string | null }
+      | { type: 'setMiningStreak'; value: number }
+      | { type: 'activateBoost' }
+      | { type: 'setPendingAction'; value: AdAction | null }
+      | { type: 'showInfoAlert'; title: string; message: string }
+      | { type: 'referralMilestone'; reward: number; updatedMilestones: ReferralMilestone[] }
+    >;
+    nextBalance: number;
+    nextMiningStreak?: number;
+    nextLastClaimedDate?: string | null;
+    reward?: number;
+    updatedMilestones?: ReferralMilestone[];
+  };
+};
+
+export function useHomeScreen(callbacks?: HomeScreenCallbacks) {
   const router = useRouter();
   const { t, setLanguage, language } = useLanguage();
   const insets = useSafeAreaInsets();
@@ -255,6 +285,15 @@ export function useHomeScreen() {
 
   // --- AD SIMULATION ---
   const triggerAd = (action: AdAction) => {
+    // For daily bonus, re-evaluate availability via domain if wired
+    if (action === 'daily_bonus' && callbacks?.onClaimDaily) {
+      const daily = callbacks.onClaimDaily({ lastClaimedDate });
+      setIsDailyBonusAvailable(daily.canClaim);
+      if (!daily.canClaim || !daily.shouldTriggerAd || !daily.action) {
+        return;
+      }
+    }
+
     startAdSimulation({
       action,
       setPendingAction,
@@ -264,6 +303,29 @@ export function useHomeScreen() {
   };
 
   const handleAdReward = (action: AdAction) => {
+    if (callbacks?.onGrantReward) {
+      const result = callbacks.onGrantReward({
+        type: 'ad',
+        action,
+        balance,
+        miningStreak,
+        lastClaimedDate,
+        t,
+      });
+
+      applyRewardDecisions(result.decisions);
+
+      if (result.nextMiningStreak !== undefined) {
+        setMiningStreak(result.nextMiningStreak);
+      }
+
+      if (result.nextLastClaimedDate !== undefined) {
+        setLastClaimedDate(result.nextLastClaimedDate);
+      }
+
+      return;
+    }
+
     applyAdReward({
       action,
       t,
@@ -309,6 +371,24 @@ export function useHomeScreen() {
 
   // --- REFERRAL MILESTONE HANDLER ---
   const handleClaimReferralMilestone = (id: string, minReward: number, maxReward: number) => {
+    if (callbacks?.onGrantReward) {
+      const result = callbacks.onGrantReward({
+        type: 'referral_milestone',
+        balance,
+        id,
+        minReward,
+        maxReward,
+      });
+
+      applyRewardDecisions(result.decisions);
+
+      if (result.reward !== undefined) {
+        showInfoAlert('Milestone Unlocked!', `You received +${result.reward} LSN for your referrals!`);
+      }
+
+      return;
+    }
+
     const { reward, updatedMilestones } = claimReferralMilestoneReward({
       id,
       minReward,
@@ -330,11 +410,25 @@ export function useHomeScreen() {
   };
 
   const handlePowerPress = () => {
-    handlePowerPressAction({
-      powerOn,
-      setPowerOn,
-      triggerAd,
-    });
+    if (callbacks?.onPowerPress) {
+      const result = callbacks.onPowerPress({ powerOn });
+
+      if (result.shouldStop) {
+        setPowerOn(false);
+        return;
+      }
+
+      if (result.shouldTriggerAd) {
+        triggerAd('mining');
+      }
+    } else {
+      // Fallback to original engine logic
+      handlePowerPressAction({
+        powerOn,
+        setPowerOn,
+        triggerAd,
+      });
+    }
   };
 
   const handleBoostPress = () => {
@@ -389,11 +483,16 @@ export function useHomeScreen() {
 
   // Daily bonus availability
   useEffect(() => {
-    updateDailyBonusAvailability({
-      lastClaimedDate,
-      setIsDailyBonusAvailable,
-    });
-  }, [lastClaimedDate, activeModal]);
+    if (callbacks?.onClaimDaily) {
+      const daily = callbacks.onClaimDaily({ lastClaimedDate });
+      setIsDailyBonusAvailable(daily.canClaim);
+    } else {
+      updateDailyBonusAvailability({
+        lastClaimedDate,
+        setIsDailyBonusAvailable,
+      });
+    }
+  }, [lastClaimedDate, activeModal, callbacks]);
 
   // Tab change fade animation
   useEffect(() => {
@@ -423,14 +522,40 @@ export function useHomeScreen() {
 
   // Mining session interval
   useEffect(() => {
-    return setupMiningSessionInterval({
-      powerOn,
-      finalMiningRate,
-      setTimeLeft,
-      setPowerOn,
-      setBalance,
-    });
-  }, [powerOn, boostActive, finalMiningRate]);
+    if (callbacks?.onTick) {
+      // Use callback from container
+      let timer: ReturnType<typeof setInterval> | undefined;
+
+      if (powerOn) {
+        timer = setInterval(() => {
+          const { rewardDelta, nextTimeLeft, shouldStop } = callbacks.onTick!({
+            timeLeft,
+            finalMiningRate,
+          });
+
+          setTimeLeft(nextTimeLeft);
+          setBalance((prev) => prev + rewardDelta);
+
+          if (shouldStop) {
+            setPowerOn(false);
+          }
+        }, 1000);
+      }
+
+      return () => {
+        if (timer) clearInterval(timer);
+      };
+    } else {
+      // Fallback to original engine logic
+      return setupMiningSessionInterval({
+        powerOn,
+        finalMiningRate,
+        setTimeLeft,
+        setPowerOn,
+        setBalance,
+      });
+    }
+  }, [powerOn, boostActive, finalMiningRate, timeLeft, callbacks]);
 
   // Breathing animation
   useEffect(() => {
@@ -596,4 +721,48 @@ export function useHomeScreen() {
     triggerAd,
     measureButtons,
   };
+
+  // Reward decision applier (kept private to hook)
+  function applyRewardDecisions(decisions: NonNullable<HomeScreenCallbacks['onGrantReward']> extends (...args: any[]) => infer R
+    ? R extends { decisions: infer D }
+      ? D
+      : never
+    : never) {
+    decisions.forEach((decision) => {
+      switch (decision.type) {
+        case 'setPowerOn':
+          setPowerOn(decision.value);
+          break;
+        case 'updateMiningStreak':
+          updateMiningStreak();
+          break;
+        case 'balanceDelta':
+          setBalance(decision.nextBalance);
+          break;
+        case 'setLastClaimedDate':
+          setLastClaimedDate(decision.value);
+          break;
+        case 'setActiveModal':
+          setActiveModal(decision.value);
+          break;
+        case 'setMiningStreak':
+          setMiningStreak(decision.value);
+          break;
+        case 'activateBoost':
+          activateBoost();
+          break;
+        case 'setPendingAction':
+          setPendingAction(decision.value);
+          break;
+        case 'showInfoAlert':
+          showInfoAlert(decision.title, decision.message);
+          break;
+        case 'referralMilestone':
+          setReferralMilestones(decision.updatedMilestones);
+          break;
+        default:
+          break;
+      }
+    });
+  }
 }

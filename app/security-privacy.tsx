@@ -38,13 +38,12 @@ const THEME = {
 };
 
 export default function SecurityPrivacyScreen() {
+  const { state, actions, flags } = useSecurityPrivacy();
+
+  // Destructure for convenience
   const {
     router,
     insets,
-    is2FAEnabled,
-    setIs2FAEnabled,
-    isBiometricEnabled,
-    setIsBiometricEnabled,
     currentPassword,
     setCurrentPassword,
     newPassword,
@@ -52,13 +51,18 @@ export default function SecurityPrivacyScreen() {
     confirmPassword,
     setConfirmPassword,
     customAlert,
-    closeAlert,
+    scale,
+  } = state;
+
+  const {
     handleToggle2FA,
     handleToggleBiometric,
     handlePasswordUpdate,
     handleDeleteAccount,
-    scale,
-  } = useSecurityPrivacy();
+    closeAlert,
+  } = actions;
+
+  const { is2FAEnabled, isBiometricEnabled } = flags;
 
   return (
     <View style={{ flex: 1, backgroundColor: THEME.bg }}>
