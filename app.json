@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0B0B0B"
+      "backgroundColor": "#F5E6D3"
     },
     "newArchEnabled": true,
     "ios": {
@@ -18,22 +18,22 @@
       "splash": {
         "image": "./assets/images/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#0B0B0B"
+        "backgroundColor": "#F5E6D3"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#0B0B0B"
-      },
-      "splash": {
-        "image": "./assets/images/splash.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#0B0B0B"
+        "backgroundColor": "#F5E6D3",
+        "foregroundImage": "./assets/images/icon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.lassannetwork"
+      "package": "com.lassannetwork",
+      "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#F5E6D3"
+      }
     },
     "web": {
       "output": "static",
@@ -44,9 +44,9 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0B0B0B",
+          "backgroundColor": "#F5E6D3",
           "image": "./assets/images/splash.png",
-          "imageWidth": 200
+          "resizeMode": "contain"
         }
       ]
     ],
